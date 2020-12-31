@@ -3,8 +3,7 @@ from scrapy_splash import SplashRequest
 
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
-    allowed_domains = ['quotestoscrape.com']
-    start_urls = ['http://quotestoscrape.com/']
+
     def start_requests(self):
         yield SplashRequest(
 
@@ -21,7 +20,7 @@ class QuotesSpider(scrapy.Spider):
         for quote in response.css("div.quote"):
             yield {
                 'text':quote.css("span.text::text").extract_first(),
-                'author':quote.css("small.text::author").extract_first(),
+                'author':quote.css("small.author::text").extract_first(),
                 'tags':quote.css("div.tags>a.tag::text").extract(),
 
 
